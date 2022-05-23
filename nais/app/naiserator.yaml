@@ -35,6 +35,12 @@ spec:
       memory: 100Mi
   kafka:
     pool: {{kafkaPool}}
+  tokenx:
+    enabled: true
+  accessPolicy:
+    inbound:
+      rules:
+        - application: ditt-sykefravaer
   gcp:
     sqlInstances:
       - type: POSTGRES_14
