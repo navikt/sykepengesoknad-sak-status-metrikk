@@ -13,7 +13,7 @@ version = "1.0.0"
 description = "ditt-sykefravaer-backend"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
-ext["okhttp3.version"] = "4.9.0" // For at token support testen kjører (tror jeg)
+ext["okhttp3.version"] = "4.9.0" // For at token support testen kjører
 
 val githubUser: String by project
 val githubPassword: String by project
@@ -23,21 +23,12 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/navikt/maven-release")
     }
-
-    maven {
-        url = uri("https://maven.pkg.github.com/navikt/sykepengesoknad-kafka")
-        credentials {
-            username = githubUser
-            password = githubPassword
-        }
-    }
 }
 
 val testContainersVersion = "1.17.2"
 val tokenSupportVersion = "2.0.20"
 val logstashLogbackEncoderVersion = "7.2"
 val kluentVersion = "1.68"
-val sykepengesoknadKafkaVersion = "2022.02.10-16.07-0892e94a"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
@@ -45,22 +36,24 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("no.nav.security:token-client-spring:$tokenSupportVersion")
     implementation("no.nav.security:token-validation-spring:$tokenSupportVersion")
     implementation("org.slf4j:slf4j-api")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashLogbackEncoderVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("no.nav.helse.flex:sykepengesoknad-kafka:$sykepengesoknadKafkaVersion")
-    implementation("org.aspectj:aspectjrt")
-    implementation("org.aspectj:aspectjweaver")
-    implementation("org.hibernate.validator:hibernate-validator")
+    implementation("org.postgresql:postgresql")
+    implementation("org.flywaydb:flyway-core")
+
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:kafka:$testContainersVersion")
     testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
+    testImplementation("no.nav.security:token-validation-spring-test:$tokenSupportVersion")
     testImplementation("org.awaitility:awaitility")
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
 }
@@ -82,5 +75,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
     testLogging {
         events("STANDARD_OUT", "STARTED", "PASSED", "FAILED", "SKIPPED")
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
 }

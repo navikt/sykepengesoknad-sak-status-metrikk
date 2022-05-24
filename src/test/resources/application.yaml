@@ -21,3 +21,9 @@ spring:
       max-poll-records: 1
       auto-offset-reset: latest
       enable-auto-commit: false
+  flyway:
+    enabled: true
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
