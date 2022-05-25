@@ -14,13 +14,13 @@ spec:
   port: 8080
   liveness:
     path: /internal/health
-    initialDelay: 30
+    initialDelay: 60
     timeout: 1
     periodSeconds: 5
     failureThreshold: 30
   readiness:
     path: /internal/health
-    initialDelay: 30
+    initialDelay: 60
     timeout: 1
     periodSeconds: 5
     failureThreshold: 30
@@ -29,7 +29,7 @@ spec:
     path: /internal/prometheus
   resources:
     limits:
-      cpu: 400m
+      cpu: 600m
       memory: 200Mi
     requests:
       cpu: 200m
