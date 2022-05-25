@@ -45,6 +45,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.postgresql:postgresql")
     implementation("org.flywaydb:flyway-core")
+    implementation("org.hibernate.validator:hibernate-validator")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-registry-prometheus")

@@ -5,26 +5,6 @@ spring:
   main.banner-mode: 'off'
   profiles:
     active: default
-  kafka:
-    bootstrap-servers: ${KAFKA_BROKERS}
-    properties:
-      security.protocol: SSL
-      ssl:
-        keystore:
-          type: PKCS12
-          location: ${KAFKA_KEYSTORE_PATH}
-          password: ${KAFKA_CREDSTORE_PASSWORD}
-        truststore:
-          location: ${KAFKA_TRUSTSTORE_PATH}
-          password: ${KAFKA_CREDSTORE_PASSWORD}
-        endpoint.identification.algorithm:
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      group-id: "ditt-sykefravaer-backend"
-      max-poll-records: 1
-      auto-offset-reset: none
-      enable-auto-commit: false
   flyway:
     enabled: true
   datasource:
@@ -35,6 +15,10 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 10
 
+aiven-kafka:
+  auto-offset-reset: none
+
+
 management:
   endpoint.prometheus.enabled: true
   endpoints.web:
@@ -44,3 +28,8 @@ management:
 logging.config: "classpath:logback.xml"
 
 
+no.nav.security.jwt:
+  issuer:
+    tokenx:
+      discoveryurl: ${TOKEN_X_WELL_KNOWN_URL}
+      accepted_audience: ${TOKEN_X_CLIENT_ID}

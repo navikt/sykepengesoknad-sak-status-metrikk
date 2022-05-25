@@ -1,6 +1,7 @@
 package no.nav.helse.flex.melding
 
 import no.nav.helse.flex.FellesTestOppsett
+import no.nav.helse.flex.melding.domene.MeldingDbRecord
 import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.Test
 import java.time.Instant

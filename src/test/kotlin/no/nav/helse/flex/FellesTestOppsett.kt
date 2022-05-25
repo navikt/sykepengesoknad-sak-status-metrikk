@@ -1,6 +1,7 @@
 package no.nav.helse.flex
 
 import no.nav.helse.flex.melding.MeldingRepository
+import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.actuate.metrics.AutoConfigureMetrics
@@ -14,6 +15,7 @@ private class PostgreSQLContainer14 : PostgreSQLContainer<PostgreSQLContainer14>
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureMetrics
+@EnableMockOAuth2Server
 @SpringBootTest(classes = [Application::class])
 abstract class FellesTestOppsett() {
 

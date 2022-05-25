@@ -1,4 +1,4 @@
-package no.nav.helse.flex.melding
+package no.nav.helse.flex.melding.domene
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
@@ -13,7 +13,7 @@ data class MeldingDbRecord(
     val tekst: String,
     val lenke: String,
     val meldingType: String,
-    val synligFremTil: Instant,
     val opprettet: Instant,
+    val synligFremTil: Instant?,
     val lukket: Instant?
 )
