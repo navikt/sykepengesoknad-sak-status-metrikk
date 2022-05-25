@@ -16,7 +16,7 @@ class TestdataResetListener(val meldingRepository: MeldingRepository) {
 
     @KafkaListener(
         topics = [TESTDATA_RESET_TOPIC],
-        containerFactory = "kafkaListenerContainerFactory",
+        containerFactory = "aivenKafkaListenerContainerFactory",
         properties = ["auto.offset.reset = latest"],
     )
     fun listen(cr: ConsumerRecord<String, String>, acknowledgment: Acknowledgment) {

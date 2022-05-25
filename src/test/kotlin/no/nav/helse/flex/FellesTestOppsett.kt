@@ -2,6 +2,7 @@ package no.nav.helse.flex
 
 import no.nav.helse.flex.melding.MeldingRepository
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.actuate.metrics.AutoConfigureMetrics
@@ -17,7 +18,7 @@ private class PostgreSQLContainer14 : PostgreSQLContainer<PostgreSQLContainer14>
 @AutoConfigureMetrics
 @EnableMockOAuth2Server
 @SpringBootTest(classes = [Application::class])
-abstract class FellesTestOppsett() {
+abstract class FellesTestOppsett {
 
     @Autowired
     lateinit var meldingRepository: MeldingRepository
@@ -31,7 +32,6 @@ abstract class FellesTestOppsett() {
                 KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.0.1")).apply {
                     start()
                     System.setProperty("KAFKA_BROKERS", bootstrapServers)
-                    System.setProperty("on-prem-kafka.bootstrap-servers", bootstrapServers)
                 }
             }.also { threads.add(it) }
 
@@ -46,5 +46,10 @@ abstract class FellesTestOppsett() {
 
             threads.forEach { it.join() }
         }
+    }
+
+    @AfterAll
+    fun `Vi resetter databasen`() {
+        meldingRepository.deleteAll()
     }
 }

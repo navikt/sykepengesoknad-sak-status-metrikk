@@ -3,6 +3,8 @@ package no.nav.helse.flex.melding
 import no.nav.helse.flex.exception.AbstractApiError
 import no.nav.helse.flex.exception.LogLevel
 import no.nav.helse.flex.logger
+import no.nav.helse.flex.melding.domene.LukkMelding
+import no.nav.helse.flex.melding.domene.MeldingKafkaDto
 import no.nav.helse.flex.melding.domene.MeldingRest
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.core.context.TokenValidationContextHolder
@@ -23,7 +25,7 @@ import java.time.Instant
 class VedtakTokenXController(
     val meldingRepository: MeldingRepository,
     val tokenValidationContextHolder: TokenValidationContextHolder,
-    val lukkMeldingProducer: LukkMeldingProducer,
+    val meldingKafkaProducer: MeldingKafkaProducer,
 
     @Value("\${DITT_SYKEFRAVAER_FRONTEND_CLIENT_ID}")
     val spinnsynFrontendClientId: String,
@@ -61,7 +63,14 @@ class VedtakTokenXController(
                 ?: throw RuntimeException("Feil melding id for fnr!")
             )
 
-        lukkMeldingProducer.produserMelding(meldingDbRecord)
+        meldingKafkaProducer.produserMelding(
+            meldingDbRecord.meldingUuid,
+            MeldingKafkaDto(
+                fnr = meldingDbRecord.fnr,
+                opprettMelding = null,
+                lukkMelding = LukkMelding(timestamp = Instant.now())
+            )
+        )
         return "lukket"
     }
 
