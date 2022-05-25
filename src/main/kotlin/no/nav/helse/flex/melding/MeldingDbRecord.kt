@@ -11,7 +11,9 @@ data class MeldingDbRecord(
     val meldingUuid: String,
     val fnr: String,
     val tekst: String,
-    val url: String,
+    val lenke: String,
+    val meldingType: String,
+    val synligFremTil: Instant,
     val opprettet: Instant,
     val lukket: Instant?
 )

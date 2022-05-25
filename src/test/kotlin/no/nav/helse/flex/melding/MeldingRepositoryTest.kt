@@ -15,7 +15,9 @@ class MeldingRepositoryTest : FellesTestOppsett() {
             opprettet = Instant.EPOCH,
             lukket = null,
             tekst = "Heyyy",
-            url = "http://heisann",
+            lenke = "http://heisann",
+            meldingType = "hoi",
+            synligFremTil = Instant.now(),
             meldingUuid = UUID.randomUUID().toString()
         )
         meldingRepository.save(melding)
