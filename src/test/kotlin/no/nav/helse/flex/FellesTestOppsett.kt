@@ -6,7 +6,10 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.actuate.metrics.AutoConfigureMetrics
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.web.servlet.MockMvc
 import org.testcontainers.containers.KafkaContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
@@ -18,10 +21,14 @@ private class PostgreSQLContainer14 : PostgreSQLContainer<PostgreSQLContainer14>
 @AutoConfigureMetrics
 @EnableMockOAuth2Server
 @SpringBootTest(classes = [Application::class])
+@AutoConfigureMockMvc(print = MockMvcPrint.NONE, printOnlyOnFailure = false)
 abstract class FellesTestOppsett {
 
     @Autowired
     lateinit var meldingRepository: MeldingRepository
+
+    @Autowired
+    lateinit var mockMvc: MockMvc
 
     companion object {
 

@@ -19,6 +19,11 @@ spring:
 DITT_SYKEFRAVAER_FRONTEND_CLIENT_ID: frontend-client-id
 DITT_SYKEFRAVAER_FRONTEND_TOKENX_IDP: idp
 
+management:
+  endpoint.prometheus.enabled: true
+  endpoints.web:
+    base-path: /internal
+    exposure.include: health,prometheus
 
 no.nav.security.jwt:
   issuer:
