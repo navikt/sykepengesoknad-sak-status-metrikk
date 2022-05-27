@@ -14,26 +14,26 @@ spec:
   port: 8080
   liveness:
     path: /internal/health
-    initialDelay: 80
+    initialDelay: 60
     timeout: 1
     periodSeconds: 5
-    failureThreshold: 30
+    failureThreshold: 20
   readiness:
     path: /internal/health
-    initialDelay: 80
+    initialDelay: 60
     timeout: 1
     periodSeconds: 5
-    failureThreshold: 30
+    failureThreshold: 20
   prometheus:
     enabled: true
     path: /internal/prometheus
   resources:
     limits:
       cpu: 600m
-      memory: 200Mi
+      memory: 600Mi
     requests:
-      cpu: 200m
-      memory: 100Mi
+      cpu: 400m
+      memory: 200Mi
   kafka:
     pool: {{kafkaPool}}
   tokenx:
