@@ -42,6 +42,7 @@ class VedtakTokenXController(
         val fnr = validerTokenXClaims().fnrFraIdportenTokenX()
         return meldingRepository.findByFnrIn(listOf(fnr))
             .filter { it.synligFremTil == null || it.synligFremTil.isAfter(Instant.now()) }
+            .filter { it.lukket == null }
             .map {
                 MeldingRest(
                     uuid = it.meldingUuid,
@@ -60,7 +61,7 @@ class VedtakTokenXController(
         val meldingDbRecord = (
             meldingRepository.findByFnrIn(listOf(fnr))
                 .firstOrNull { it.meldingUuid == meldingUuid }
-                ?: throw RuntimeException("Feil melding id for fnr!")
+                ?: throw FeilUuidForLukking()
             )
 
         meldingKafkaProducer.produserMelding(
@@ -98,5 +99,12 @@ private class IngenTilgang(override val message: String) : AbstractApiError(
     message = message,
     httpStatus = HttpStatus.FORBIDDEN,
     reason = "INGEN_TILGANG",
+    loglevel = LogLevel.WARN
+)
+
+private class FeilUuidForLukking : AbstractApiError(
+    message = "Forsøker å lukke uuid vi ikke finner i databasen",
+    httpStatus = HttpStatus.BAD_REQUEST,
+    reason = "FEIL_UUID_FOR_LUKKING",
     loglevel = LogLevel.WARN
 )

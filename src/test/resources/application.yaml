@@ -17,7 +17,7 @@ spring:
       maximum-pool-size: 3
 
 DITT_SYKEFRAVAER_FRONTEND_CLIENT_ID: frontend-client-id
-DITT_SYKEFRAVAER_FRONTEND_TOKENX_IDP: idp
+DITT_SYKEFRAVAER_FRONTEND_TOKENX_IDP: idporten
 
 management:
   endpoint.prometheus.enabled: true
@@ -29,4 +29,4 @@ no.nav.security.jwt:
   issuer:
     tokenx:
       discoveryurl: http://localhost:${mock-oauth2-server.port}/tokenx/.well-known/openid-configuration
-      accepted_audience: spinnsyn-backend-client-id
+      accepted_audience: ditt-sykefravaer-backend-client-id
