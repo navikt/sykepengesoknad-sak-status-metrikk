@@ -1,6 +1,8 @@
 package no.nav.helse.flex
 
+import no.nav.helse.flex.melding.MeldingRepository
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.actuate.metrics.AutoConfigureMetrics
@@ -21,6 +23,9 @@ private class PostgreSQLContainer14 : PostgreSQLContainer<PostgreSQLContainer14>
 @SpringBootTest(classes = [Application::class])
 @AutoConfigureMockMvc(print = MockMvcPrint.NONE, printOnlyOnFailure = false)
 abstract class FellesTestOppsett {
+
+    @Autowired
+    lateinit var meldingRepository: MeldingRepository
 
     @Autowired
     lateinit var mockMvc: MockMvc
@@ -48,5 +53,10 @@ abstract class FellesTestOppsett {
 
             threads.forEach { it.join() }
         }
+    }
+
+    @AfterAll
+    fun `Vi resetter databasen`() {
+        meldingRepository.deleteAll()
     }
 }
