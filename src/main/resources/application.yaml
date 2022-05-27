@@ -5,15 +5,7 @@ spring:
   main.banner-mode: 'off'
   profiles:
     active: default
-  flyway:
-    enabled: true
-  datasource:
-    url: "jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DATABASE}?reWriteBatchedInserts=true"
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    hikari:
-      minimum-idle: 1
-      maximum-pool-size: 10
+
 
 aiven-kafka:
   auto-offset-reset: none
@@ -28,8 +20,3 @@ management:
 logging.config: "classpath:logback.xml"
 
 
-no.nav.security.jwt:
-  issuer:
-    tokenx:
-      discoveryurl: ${TOKEN_X_WELL_KNOWN_URL}
-      accepted_audience: ${TOKEN_X_CLIENT_ID}
