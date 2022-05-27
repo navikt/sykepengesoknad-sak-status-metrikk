@@ -9,7 +9,7 @@ import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 
 @Component
-@Profile("avslatt")
+@Profile("testdatareset")
 class TestdataResetListener(val meldingRepository: MeldingRepository) {
 
     val log = logger()
