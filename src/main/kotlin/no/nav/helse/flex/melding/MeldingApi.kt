@@ -2,7 +2,6 @@ package no.nav.helse.flex.melding
 
 import no.nav.helse.flex.exception.AbstractApiError
 import no.nav.helse.flex.exception.LogLevel
-import no.nav.helse.flex.logger
 import no.nav.helse.flex.melding.domene.LukkMelding
 import no.nav.helse.flex.melding.domene.MeldingKafkaDto
 import no.nav.helse.flex.melding.domene.MeldingRest
@@ -28,12 +27,11 @@ class VedtakTokenXController(
     val meldingKafkaProducer: MeldingKafkaProducer,
 
     @Value("\${DITT_SYKEFRAVAER_FRONTEND_CLIENT_ID}")
-    val spinnsynFrontendClientId: String,
+    val dittSykefravaerFrontendClientId: String,
 
     @Value("\${DITT_SYKEFRAVAER_FRONTEND_TOKENX_IDP}")
-    val spinnsynFrontendTokenxIdp: String,
+    val dittSykefravaerFrontendTokenxIdp: String,
 ) {
-    val log = logger()
 
     @GetMapping("/meldinger", produces = [APPLICATION_JSON_VALUE])
     @ResponseBody
@@ -79,11 +77,11 @@ class VedtakTokenXController(
         val context = tokenValidationContextHolder.tokenValidationContext
         val claims = context.getClaims("tokenx")
         val clientId = claims.getStringClaim("client_id")
-        if (clientId != spinnsynFrontendClientId) {
+        if (clientId != dittSykefravaerFrontendClientId) {
             throw IngenTilgang("Uventet client id $clientId")
         }
         val idp = claims.getStringClaim("idp")
-        if (idp != spinnsynFrontendTokenxIdp) {
+        if (idp != dittSykefravaerFrontendTokenxIdp) {
             // Sjekker at det var idporten som er IDP for tokenX tokenet
             throw IngenTilgang("Uventet idp $idp")
         }
