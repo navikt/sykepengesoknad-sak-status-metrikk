@@ -24,3 +24,8 @@ spec:
     - team: flex
       application: ditt-sykefravaer-backend
       access: readwrite
+  {{#if testdataTilgang}}
+    - team: flex
+      application: flex-testdata-generator
+      access: write
+  {{/if}}

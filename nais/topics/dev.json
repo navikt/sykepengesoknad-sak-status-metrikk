@@ -1,3 +1,4 @@
 {
-  "kafkaPool": "nav-dev"
+  "kafkaPool": "nav-dev",
+  "testdataTilgang": "true"
 }
