@@ -48,6 +48,7 @@ class VedtakTokenXController(
                     lenke = it.lenke,
                     variant = it.variant,
                     lukkbar = it.lukkbar,
+                    opprettet = it.opprettet,
                 )
             }
     }
