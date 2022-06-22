@@ -36,7 +36,7 @@ class VedtakTokenXController(
     @GetMapping("/meldinger", produces = [APPLICATION_JSON_VALUE])
     @ResponseBody
     @ProtectedWithClaims(issuer = "tokenx", claimMap = ["acr=Level4"])
-    fun hentVedtak(): List<MeldingRest> {
+    fun hentMeldinger(): List<MeldingRest> {
         val fnr = validerTokenXClaims().fnrFraIdportenTokenX()
         return meldingRepository.findByFnrIn(listOf(fnr))
             .filter { it.synligFremTil == null || it.synligFremTil.isAfter(Instant.now()) }
@@ -48,6 +48,7 @@ class VedtakTokenXController(
                     lenke = it.lenke,
                     variant = it.variant,
                     lukkbar = it.lukkbar,
+                    meldingType = it.meldingType,
                     opprettet = it.opprettet,
                 )
             }
