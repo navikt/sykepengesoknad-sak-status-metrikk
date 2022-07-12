@@ -57,7 +57,7 @@ class VedtakTokenXController(
     @PostMapping(value = ["/meldinger/{meldingUuid}/lukk"], produces = [APPLICATION_JSON_VALUE])
     @ResponseBody
     @ProtectedWithClaims(issuer = "tokenx", claimMap = ["acr=Level4"])
-    fun lukkMelding(@PathVariable meldingUuid: String): String {
+    fun lukkMelding(@PathVariable meldingUuid: String): LukkResponse {
         val fnr = validerTokenXClaims().fnrFraIdportenTokenX()
 
         val meldingDbRecord = (
@@ -76,7 +76,7 @@ class VedtakTokenXController(
                 lukkMelding = LukkMelding(timestamp = Instant.now())
             )
         )
-        return "lukket"
+        return LukkResponse("lukket")
     }
 
     private fun validerTokenXClaims(): JwtTokenClaims {
@@ -98,6 +98,8 @@ class VedtakTokenXController(
         return this.getStringClaim("pid")
     }
 }
+
+data class LukkResponse(val message: String)
 
 private class IngenTilgang(override val message: String) : AbstractApiError(
     message = message,
