@@ -33,7 +33,7 @@ spec:
       memory: 600Mi
     requests:
       cpu: 400m
-      memory: 200Mi
+      memory: 350Mi
   kafka:
     pool: {{kafkaPool}}
   tokenx:
