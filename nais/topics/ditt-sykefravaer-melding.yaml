@@ -24,6 +24,9 @@ spec:
     - team: flex
       application: ditt-sykefravaer-backend
       access: readwrite
+    - team: team-esyfo
+      application: esyfovarsel
+      access: write
   {{#if testdataTilgang}}
     - team: flex
       application: flex-testdata-generator
