@@ -15,7 +15,6 @@ class MeldingListener(
 
     @KafkaListener(
         topics = [dittSykefravaerMeldingTopic],
-        properties = ["auto.offset.reset = earliest"], // TODO Fjern meg når vi er live
         containerFactory = "aivenKafkaListenerContainerFactory"
     )
     fun listen(cr: ConsumerRecord<String, String>, acknowledgment: Acknowledgment) {
