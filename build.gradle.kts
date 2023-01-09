@@ -26,7 +26,6 @@ repositories {
 }
 
 val testContainersVersion = "1.17.6"
-val tokenSupportVersion = "3.0.2"
 val logstashLogbackEncoderVersion = "7.2"
 val kluentVersion = "1.72"
 
@@ -37,8 +36,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("no.nav.security:token-client-spring:$tokenSupportVersion")
-    implementation("no.nav.security:token-validation-spring:$tokenSupportVersion")
     implementation("org.slf4j:slf4j-api")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashLogbackEncoderVersion")
@@ -54,7 +51,6 @@ dependencies {
     testImplementation("org.testcontainers:kafka:$testContainersVersion")
     testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
     testImplementation("org.testcontainers:postgresql:$testContainersVersion")
-    testImplementation("no.nav.security:token-validation-spring-test:$tokenSupportVersion")
     testImplementation("org.awaitility:awaitility")
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
 }
