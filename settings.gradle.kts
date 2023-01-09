@@ -1,1 +1,1 @@
-rootProject.name = "ditt-sykefravaer-backend"
+rootProject.name = "sykepengesoknad-sak-status-metrikk"

@@ -94,7 +94,7 @@ abstract class FellesTestOppsett {
 
     fun tokenxToken(
         fnr: String,
-        audience: String = "ditt-sykefravaer-backend-client-id",
+        audience: String = "sykepengesoknad-sak-status-metrikk-client-id",
         issuerId: String = "tokenx",
         clientId: String = "frontend-client-id",
         claims: Map<String, Any> = mapOf(

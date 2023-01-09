@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: ditt-sykefravaer-backend
+  name: sykepengesoknad-sak-status-metrikk
   namespace: flex
   labels:
     team: flex
@@ -52,7 +52,7 @@ spec:
         pointInTimeRecovery: false
         diskAutoresize: true
         databases:
-          - name: ditt-sykefravaer-backend-db
+          - name: sykepengesoknad-sak-status-metrikk-db
             envVarPrefix: DATABASE
         maintenance:
           day: 2

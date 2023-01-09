@@ -10,7 +10,7 @@ plugins {
 
 group = "no.nav.helse.flex"
 version = "1.0.0"
-description = "ditt-sykefravaer-backend"
+description = "sykepengesoknad-sak-status-metrikk"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 ext["okhttp3.version"] = "4.9.0" // For at token support testen kjører
