@@ -8,7 +8,6 @@ import org.springframework.kafka.listener.DefaultErrorHandler
 import org.springframework.kafka.listener.MessageListenerContainer
 import org.springframework.stereotype.Component
 import org.springframework.util.backoff.ExponentialBackOff
-import java.lang.Exception
 
 @Component
 class AivenKafkaErrorHandler : DefaultErrorHandler(

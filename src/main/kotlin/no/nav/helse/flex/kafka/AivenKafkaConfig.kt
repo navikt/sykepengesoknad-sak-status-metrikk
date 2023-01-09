@@ -80,5 +80,3 @@ class AivenKafkaConfig(
         return factory
     }
 }
-
-const val dittSykefravaerMeldingTopic = "flex." + "ditt-sykefravaer-melding"

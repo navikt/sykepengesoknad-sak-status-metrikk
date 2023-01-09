@@ -26,10 +26,3 @@ management:
     exposure.include: health,prometheus
 
 logging.config: "classpath:logback.xml"
-nais.cluster: ${NAIS_CLUSTER_NAME}
-
-no.nav.security.jwt:
-  issuer:
-    tokenx:
-      discoveryurl: ${TOKEN_X_WELL_KNOWN_URL}
-      accepted_audience: ${TOKEN_X_CLIENT_ID}
