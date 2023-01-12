@@ -32,7 +32,7 @@ class AivenKafkaConfig(
     private val PKCS12 = "PKCS12"
 
     @Bean
-    fun sykepengesoknadProducer(): KafkaProducer<String, String> {
+    fun stringStringProducer(): KafkaProducer<String, String> {
         val configs = mapOf(
             KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
             VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
