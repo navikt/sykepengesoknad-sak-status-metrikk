@@ -2,12 +2,20 @@ package no.nav.helse.flex
 
 import no.nav.helse.flex.domain.hentEventName
 import no.nav.helse.flex.domain.tilSøknadMedId
+import no.nav.helse.flex.domain.tilVedtaksperiodeEndretEvent
 import no.nav.helse.flex.repository.SykepengesoknadIdRepository
+import no.nav.helse.flex.repository.SykepengesoknadVedtaksperiodeRepository
+import no.nav.helse.flex.repository.VedtaksperiodeTilstandDbRecord
+import no.nav.helse.flex.repository.VedtaksperiodeTilstandRepository
 import org.springframework.stereotype.Component
+import java.time.ZoneOffset
 
 @Component
 class FinnStatusFraRapid(
     val sykepengesoknadIdRepository: SykepengesoknadIdRepository,
+    val sykepengesoknadVedtaksperiodeRepository: SykepengesoknadVedtaksperiodeRepository,
+    val vedtaksperiodeTilstandRepository: VedtaksperiodeTilstandRepository,
+
 ) {
 
     fun oppdater(value: String) {
@@ -18,11 +26,37 @@ class FinnStatusFraRapid(
             "sendt_søknad_nav", "sendt_søknad_arbeidsgiver" -> {
                 håndterSendtSøknadEvents(value)
             }
+
+            "vedtaksperiode_endret" -> {
+                håndterVedtaksperiodeEndretEvents(value)
+            }
         }
     }
 
-    fun håndterSendtSøknadEvents(value: String) {
+    private fun håndterVedtaksperiodeEndretEvents(value: String) {
+        val vedtaksperiodeEndretEvent = value.tilVedtaksperiodeEndretEvent()
+
+        vedtaksperiodeEndretEvent.hendelser.forEach {
+            sykepengesoknadVedtaksperiodeRepository.insert(
+                sykepengesoknadAtId = it,
+                vedtaksperiodeId = vedtaksperiodeEndretEvent.vedtaksperiodeId
+            )
+        }
+
+        vedtaksperiodeTilstandRepository.save(
+            VedtaksperiodeTilstandDbRecord(
+                vedtaksperiodeId = vedtaksperiodeEndretEvent.vedtaksperiodeId,
+                tilstand = vedtaksperiodeEndretEvent.gjeldendeTilstand,
+                tidspunkt = vedtaksperiodeEndretEvent.opprettet.toInstant(ZoneOffset.UTC)
+            )
+        )
+    }
+
+    private fun håndterSendtSøknadEvents(value: String) {
         val soknadIder = value.tilSøknadMedId()
-        sykepengesoknadIdRepository.insert(sykepengesoknadUuid = soknadIder.sykepengesoknadUuid, sykepengesoknadAtId = soknadIder.sykepengesoknadAtId)
+        sykepengesoknadIdRepository.insert(
+            sykepengesoknadUuid = soknadIder.sykepengesoknadUuid,
+            sykepengesoknadAtId = soknadIder.sykepengesoknadAtId
+        )
     }
 }

@@ -11,7 +11,6 @@ CREATE TABLE sykepengesoknad_vedtaksperiode
     vedtaksperiode_id     VARCHAR NOT NULL
 );
 
-
 CREATE TABLE vedtaksperiode_tilstand
 (
     id                VARCHAR DEFAULT uuid_generate_v4() PRIMARY KEY,

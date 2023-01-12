@@ -1,0 +1,28 @@
+{
+
+
+
+  "vedtaksperiodeId": "9017447e-8480-46e8-b394-ba58874e35aa",
+  "gjeldendeTilstand": "AVVENTER_INNTEKTSMELDING_ELLER_HISTORIKK",
+  "hendelser": [
+    "109d1fd9-50cf-4e21-b5e3-dbf10665a849"
+  ],
+
+  "makstid": "2023-07-10T11:17:20.588873284",
+  "fom": "2022-08-17",
+  "tom": "2022-08-23",
+  "@id": "b7fd0a82-eb47-4040-a4c1-3674dad07bfd",
+  "@opprettet": "2023-01-11T11:17:20.589589738",
+  "system_read_count": 0,
+  "system_participating_services": [
+    {
+      "id": "b7fd0a82-eb47-4040-a4c1-3674dad07bfd",
+      "time": "2023-01-11T11:17:20.589589738",
+      "service": "helse-spleis",
+      "instance": "helse-spleis-85df9584b6-5qbjm",
+      "image": "ghcr.io/navikt/helse-spleis/spleis:cc3747c"
+    }
+  ],
+  "aktørId": "2002045142223",
+  "fødselsnummer": "26897298928"
+}
