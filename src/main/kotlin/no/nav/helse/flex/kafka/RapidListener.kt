@@ -12,7 +12,8 @@ class RapidListener(
 ) {
     @KafkaListener(
         topics = [rapidTopic],
-        containerFactory = "aivenKafkaListenerContainerFactory"
+        containerFactory = "aivenKafkaListenerContainerFactory",
+        concurrency = "4",
     )
     fun listen(cr: ConsumerRecord<String, String>, acknowledgment: Acknowledgment) {
         finnStatusFraRapid.oppdater(cr.value())
