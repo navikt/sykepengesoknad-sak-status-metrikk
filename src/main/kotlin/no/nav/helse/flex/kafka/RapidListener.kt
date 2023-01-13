@@ -21,4 +21,4 @@ class RapidListener(
     }
 }
 
-const val rapidTopic = "todo-riktig-topic"
+const val rapidTopic = "tbd.rapid.v1"
