@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 
 data class MeldingMedEventName(
     @JsonProperty("@event_name")
-    val eventName: String,
+    val eventName: String? = null,
 )
 
-fun String.hentEventName(): String {
+fun String.hentEventName(): String? {
     return objectMapper.readValue(this, MeldingMedEventName::class.java).eventName
 }
 
