@@ -1,5 +1,6 @@
 package no.nav.helse.flex
 
+import org.apache.kafka.clients.producer.KafkaProducer
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability
@@ -23,6 +24,9 @@ abstract class FellesTestOppsett {
 
     @Autowired
     lateinit var mockMvc: MockMvc
+
+    @Autowired
+    lateinit var kafkaProducer: KafkaProducer<String, String>
 
     companion object {
 

@@ -32,7 +32,7 @@ class AivenKafkaConfig(
     private val PKCS12 = "PKCS12"
 
     @Bean
-    fun sykepengesoknadProducer(): KafkaProducer<String, String> {
+    fun stringStringProducer(): KafkaProducer<String, String> {
         val configs = mapOf(
             KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
             VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
@@ -64,12 +64,12 @@ class AivenKafkaConfig(
         aivenKafkaErrorHandler: AivenKafkaErrorHandler
     ): ConcurrentKafkaListenerContainerFactory<String, String> {
         val config = mapOf(
-            ConsumerConfig.GROUP_ID_CONFIG to "sykepengesoknad-sak-status-metrikk-consumer",
+            ConsumerConfig.GROUP_ID_CONFIG to "sykepengesoknad-sak-status-metrikk-consumer-2",
             ConsumerConfig.AUTO_OFFSET_RESET_CONFIG to kafkaAutoOffsetReset,
             ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to false,
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-            ConsumerConfig.MAX_POLL_RECORDS_CONFIG to "1",
+            ConsumerConfig.MAX_POLL_RECORDS_CONFIG to "100",
         ) + commonConfig()
         val consumerFactory = DefaultKafkaConsumerFactory<String, String>(config)
 

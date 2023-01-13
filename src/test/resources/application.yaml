@@ -9,6 +9,7 @@ aiven-kafka:
   auto-offset-reset: latest
 
 spring:
+  main.banner-mode: 'off'
   profiles:
     active: test
   flyway:
