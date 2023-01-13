@@ -44,5 +44,3 @@ data class VedtaksperiodeForkastetEvent(
 fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
     return objectMapper.readValue(this, VedtaksperiodeForkastetEvent::class.java)
 }
-
-

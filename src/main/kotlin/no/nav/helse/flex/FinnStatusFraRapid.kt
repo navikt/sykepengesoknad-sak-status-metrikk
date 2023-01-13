@@ -1,9 +1,9 @@
 package no.nav.helse.flex
 
 import no.nav.helse.flex.domain.hentEventName
-import no.nav.helse.flex.domain.tilVedtaksperiodeForkastetEvent
 import no.nav.helse.flex.domain.tilSøknadMedId
 import no.nav.helse.flex.domain.tilVedtaksperiodeEndretEvent
+import no.nav.helse.flex.domain.tilVedtaksperiodeForkastetEvent
 import no.nav.helse.flex.repository.SykepengesoknadIdRepository
 import no.nav.helse.flex.repository.SykepengesoknadVedtaksperiodeRepository
 import no.nav.helse.flex.repository.VedtaksperiodeForkastetRepository
@@ -68,7 +68,6 @@ class FinnStatusFraRapid(
 
     private fun håndterVedtaksperiodeForkastetEvents(value: String) {
         val vedtaksperiodeForkastetEvent = value.tilVedtaksperiodeForkastetEvent()
-
 
         vedtaksperiodeForkastetEvent.hendelser.forEach {
             sykepengesoknadVedtaksperiodeRepository.insert(
