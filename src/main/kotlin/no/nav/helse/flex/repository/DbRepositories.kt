@@ -78,3 +78,15 @@ interface VedtaksperiodeForkastetRepository : CrudRepository<VedtaksperiodeForka
 data class VedtaksperiodeForkastetDbRecord(
     val vedtaksperiodeId: String,
 )
+
+@Repository
+interface VedtaksperiodeFunksjonellFeilRepository : CrudRepository<VedtaksperiodeFunksjonellFeilDbRecord, String>
+
+@Table("vedtaksperiode_funksjonell_feil")
+data class VedtaksperiodeFunksjonellFeilDbRecord(
+    @Id
+    val id: String? = null,
+    val vedtaksperiodeId: String,
+    val melding: String,
+    val tidspunkt: Instant
+)

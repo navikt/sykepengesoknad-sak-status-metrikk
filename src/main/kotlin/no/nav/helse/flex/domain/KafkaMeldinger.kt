@@ -27,7 +27,7 @@ fun String.tilSøknadMedId(): SøknadMedId {
 data class VedtaksperiodeEndretEvent(
     val vedtaksperiodeId: String,
     val gjeldendeTilstand: String,
-    val hendelser: List<String>,
+    val hendelser: List<String>? = null,
     @JsonProperty("@opprettet")
     val opprettet: LocalDateTime
 )
@@ -38,9 +38,29 @@ fun String.tilVedtaksperiodeEndretEvent(): VedtaksperiodeEndretEvent {
 
 data class VedtaksperiodeForkastetEvent(
     val vedtaksperiodeId: String,
-    val hendelser: List<String>,
+    val hendelser: List<String>? = null,
 )
 
 fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
     return objectMapper.readValue(this, VedtaksperiodeForkastetEvent::class.java)
+}
+
+data class AktivitetsloggNyAktivitetEvent(
+    val aktiviteter: ArrayList<Aktiviteter> = arrayListOf(),
+    @JsonProperty("@opprettet")
+    val opprettet: LocalDateTime
+)
+
+data class Aktiviteter(
+    val nivå: String? = null,
+    val melding: String? = null,
+    val kontekster: List<Kontekster>? = null,
+)
+
+data class Kontekster(
+    val kontekstmap: Map<String, String>? = null
+)
+
+fun String.tilAktivitetsloggNyAktivitetEvent(): AktivitetsloggNyAktivitetEvent {
+    return objectMapper.readValue(this, AktivitetsloggNyAktivitetEvent::class.java)
 }
