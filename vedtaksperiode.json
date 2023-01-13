@@ -1,13 +1,12 @@
 {
-
-
-
+  "@event_name": "vedtaksperiode_endret",
+  "organisasjonsnummer": "839942907",
   "vedtaksperiodeId": "9017447e-8480-46e8-b394-ba58874e35aa",
   "gjeldendeTilstand": "AVVENTER_INNTEKTSMELDING_ELLER_HISTORIKK",
+  "forrigeTilstand": "START",
   "hendelser": [
     "109d1fd9-50cf-4e21-b5e3-dbf10665a849"
   ],
-
   "makstid": "2023-07-10T11:17:20.588873284",
   "fom": "2022-08-17",
   "tom": "2022-08-23",

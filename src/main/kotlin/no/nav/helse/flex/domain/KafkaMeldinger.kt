@@ -35,3 +35,14 @@ data class VedtaksperiodeEndretEvent(
 fun String.tilVedtaksperiodeEndretEvent(): VedtaksperiodeEndretEvent {
     return objectMapper.readValue(this, VedtaksperiodeEndretEvent::class.java)
 }
+
+data class VedtaksperiodeForkastetEvent(
+    val vedtaksperiodeId: String,
+    val hendelser: List<String>,
+)
+
+fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
+    return objectMapper.readValue(this, VedtaksperiodeForkastetEvent::class.java)
+}
+
+

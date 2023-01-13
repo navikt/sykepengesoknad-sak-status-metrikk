@@ -59,3 +59,22 @@ data class VedtaksperiodeTilstandDbRecord(
     val tilstand: String,
     val tidspunkt: Instant
 )
+
+@Repository
+interface VedtaksperiodeForkastetRepository : CrudRepository<VedtaksperiodeForkastetDbRecord, String> {
+
+    @Modifying
+    @Query(
+        """
+        INSERT INTO vedtaksperiode_forkastet(vedtaksperiode_id)
+        VALUES (:vedtaksperiodeId)
+        ON CONFLICT DO NOTHING
+        """
+    )
+    fun insert(vedtaksperiodeId: String)
+}
+
+@Table("vedtaksperiode_forkastet")
+data class VedtaksperiodeForkastetDbRecord(
+    val vedtaksperiodeId: String,
+)
