@@ -6,4 +6,3 @@ db_tier: db-f1-micro
 db_diskSize: 10
 env:
   SPRING_PROFILES_ACTIVE: default
-  AIVEN_KAFKA_AUTO_OFFSET_RESET: latest
