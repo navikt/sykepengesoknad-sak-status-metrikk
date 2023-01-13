@@ -3,6 +3,7 @@ package no.nav.helse.flex
 import no.nav.helse.flex.kafka.rapidTopic
 import no.nav.helse.flex.repository.SykepengesoknadIdRepository
 import no.nav.helse.flex.repository.SykepengesoknadVedtaksperiodeRepository
+import no.nav.helse.flex.repository.VedtaksperiodeForkastetRepository
 import no.nav.helse.flex.repository.VedtaksperiodeTilstandRepository
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should contain`
@@ -28,6 +29,9 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
 
     @Autowired
     lateinit var vedtaksperiodeTilstandRepository: VedtaksperiodeTilstandRepository
+
+    @Autowired
+    lateinit var vedtaksperiodeForkastetRepository: VedtaksperiodeForkastetRepository
 
     @Test
     @Order(1)
@@ -86,6 +90,7 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
     @Order(3)
     fun `Tar imot vedtaksperiodeForkastetEvent og lagrer i to tabeller`() {
         sykepengesoknadIdRepository.count() `should be equal to` 1
+        vedtaksperiodeForkastetRepository.count() `should be equal to` 0
 
         kafkaProducer.send(ProducerRecord(rapidTopic, UUID.randomUUID().toString(), vedtaksperiodeForkastet))
 
@@ -93,10 +98,17 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
             sykepengesoknadVedtaksperiodeRepository.count() == 2L
         }
 
+        await().atMost(10, TimeUnit.SECONDS).until {
+            vedtaksperiodeForkastetRepository.count() == 1L
+        }
+
         val sykepengesoknadVedtaksperiodeDbRecords = sykepengesoknadVedtaksperiodeRepository.findAll().toList()
         sykepengesoknadVedtaksperiodeDbRecords.size `should be equal to` 2
 
         sykepengesoknadVedtaksperiodeDbRecords.map { it.sykepengesoknadAtId } `should contain` "110d1fd9-50cf-4e21-b5e3-dbf10665a777"
+        sykepengesoknadVedtaksperiodeDbRecords.map { it.vedtaksperiodeId } `should contain` "c8c2246a-0667-495b-8fb9-543e900bfd55"
+
+        vedtaksperiodeForkastetRepository.findAll().first().vedtaksperiodeId `should be equal to` "c8c2246a-0667-495b-8fb9-543e900bfd55"
     }
 
     val soknad =
