@@ -26,9 +26,7 @@ class FinnStatusFraRapid(
 
     fun oppdater(value: String) {
 
-        val eventName = value.hentEventName()
-
-        when (eventName) {
+        when (value.hentEventName()) {
             "sendt_søknad_nav", "sendt_søknad_arbeidsgiver" -> {
                 håndterSendtSøknadEvents(value)
             }
@@ -52,7 +50,7 @@ class FinnStatusFraRapid(
 
         val vedtaksperiodeId = aktivitetsloggNyAktivitetEvent.aktiviteter
             .flatMap { it.kontekster ?: emptyList() }
-            .firstNotNullOfOrNull { it.kontekstmap?.get("vedtaktsperiodeId") }
+            .firstNotNullOfOrNull { it.kontekstmap?.get("vedtaksperiodeId") }
             ?: return
 
         val funksjonelleFeil = aktivitetsloggNyAktivitetEvent.aktiviteter

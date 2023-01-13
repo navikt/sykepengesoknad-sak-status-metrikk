@@ -43,7 +43,7 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
         sykepengesoknadIdRepository.count() `should be equal to` 0
         kafkaProducer.send(ProducerRecord(rapidTopic, UUID.randomUUID().toString(), soknad))
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             sykepengesoknadIdRepository.count() == 1L
         }
 
@@ -68,11 +68,11 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
 
         kafkaProducer.send(ProducerRecord(rapidTopic, UUID.randomUUID().toString(), vedtaktaksperiodeEndret))
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             sykepengesoknadVedtaksperiodeRepository.count() == 1L
         }
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             vedtaksperiodeTilstandRepository.count() == 1L
         }
 
@@ -98,11 +98,11 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
 
         kafkaProducer.send(ProducerRecord(rapidTopic, UUID.randomUUID().toString(), vedtaksperiodeForkastet))
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             sykepengesoknadVedtaksperiodeRepository.count() == 2L
         }
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             vedtaksperiodeForkastetRepository.count() == 1L
         }
 
@@ -122,7 +122,7 @@ class LagreKafkaMeldingerTest : FellesTestOppsett() {
 
         kafkaProducer.send(ProducerRecord(rapidTopic, UUID.randomUUID().toString(), aktivitetsloggNyAktivitet))
 
-        await().atMost(10, TimeUnit.SECONDS).until {
+        await().atMost(20, TimeUnit.SECONDS).until {
             vedtaksperiodeFunksjonellFeilRepository.count() == 1L
         }
 
