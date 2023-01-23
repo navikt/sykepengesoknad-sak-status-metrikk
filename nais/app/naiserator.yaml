@@ -47,6 +47,8 @@ spec:
         diskAutoresize: true
         databases:
           - name: sykepengesoknad-sak-status-metrikk-db
+            users:
+              - name: bigquery-dataprodukt
             envVarPrefix: DATABASE
         maintenance:
           day: 2
