@@ -25,7 +25,7 @@ interface SykepengesoknadIdRepository : CrudRepository<SykepengesoknadIdDbRecord
 @Table("sykepengesoknad_id")
 data class SykepengesoknadIdDbRecord(
     val sykepengesoknadUuid: String,
-    val sykepengesoknadAtId: String,
+    val sykepengesoknadAtId: String
 )
 
 @Repository
@@ -45,7 +45,7 @@ interface SykepengesoknadVedtaksperiodeRepository : CrudRepository<Sykepengesokn
 @Table("sykepengesoknad_vedtaksperiode")
 data class SykepengesoknadVedtaksperiodeDbRecord(
     val sykepengesoknadAtId: String,
-    val vedtaksperiodeId: String,
+    val vedtaksperiodeId: String
 )
 
 @Repository
@@ -76,7 +76,7 @@ interface VedtaksperiodeForkastetRepository : CrudRepository<VedtaksperiodeForka
 
 @Table("vedtaksperiode_forkastet")
 data class VedtaksperiodeForkastetDbRecord(
-    val vedtaksperiodeId: String,
+    val vedtaksperiodeId: String
 )
 
 @Repository

@@ -21,11 +21,10 @@ class FinnStatusFraRapid(
     val sykepengesoknadVedtaksperiodeRepository: SykepengesoknadVedtaksperiodeRepository,
     val vedtaksperiodeTilstandRepository: VedtaksperiodeTilstandRepository,
     val vedtaksperodeForkastetRepository: VedtaksperiodeForkastetRepository,
-    val vedtaksperiodeFunksjonellFeilRepository: VedtaksperiodeFunksjonellFeilRepository,
+    val vedtaksperiodeFunksjonellFeilRepository: VedtaksperiodeFunksjonellFeilRepository
 ) {
 
     fun oppdater(value: String) {
-
         when (value.hentEventName()) {
             "sendt_søknad_nav", "sendt_søknad_arbeidsgiver" -> {
                 håndterSendtSøknadEvents(value)
@@ -62,7 +61,7 @@ class FinnStatusFraRapid(
                 VedtaksperiodeFunksjonellFeilDbRecord(
                     vedtaksperiodeId = vedtaksperiodeId,
                     melding = it,
-                    tidspunkt = aktivitetsloggNyAktivitetEvent.opprettet.toInstant(ZoneOffset.UTC),
+                    tidspunkt = aktivitetsloggNyAktivitetEvent.opprettet.toInstant(ZoneOffset.UTC)
                 )
             )
         }
@@ -106,7 +105,7 @@ class FinnStatusFraRapid(
         }
 
         vedtaksperodeForkastetRepository.insert(
-            vedtaksperiodeId = vedtaksperiodeForkastetEvent.vedtaksperiodeId,
+            vedtaksperiodeId = vedtaksperiodeForkastetEvent.vedtaksperiodeId
         )
     }
 }

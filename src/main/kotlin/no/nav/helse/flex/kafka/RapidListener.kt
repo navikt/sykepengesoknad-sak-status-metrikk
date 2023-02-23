@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class RapidListener(
-    val finnStatusFraRapid: FinnStatusFraRapid,
+    val finnStatusFraRapid: FinnStatusFraRapid
 ) {
     @KafkaListener(
         topics = [rapidTopic],
         containerFactory = "aivenKafkaListenerContainerFactory",
-        concurrency = "4",
+        concurrency = "4"
     )
     fun listen(cr: ConsumerRecord<String, String>, acknowledgment: Acknowledgment) {
         finnStatusFraRapid.oppdater(cr.value())

@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 data class MeldingMedEventName(
     @JsonProperty("@event_name")
-    val eventName: String? = null,
+    val eventName: String? = null
 )
 
 fun String.hentEventName(): String? {
@@ -17,7 +17,7 @@ data class SøknadMedId(
     @JsonProperty("id")
     val sykepengesoknadUuid: String,
     @JsonProperty("@id")
-    val sykepengesoknadAtId: String,
+    val sykepengesoknadAtId: String
 )
 
 fun String.tilSøknadMedId(): SøknadMedId {
@@ -38,7 +38,7 @@ fun String.tilVedtaksperiodeEndretEvent(): VedtaksperiodeEndretEvent {
 
 data class VedtaksperiodeForkastetEvent(
     val vedtaksperiodeId: String,
-    val hendelser: List<String>? = null,
+    val hendelser: List<String>? = null
 )
 
 fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
@@ -54,7 +54,7 @@ data class AktivitetsloggNyAktivitetEvent(
 data class Aktiviteter(
     val nivå: String? = null,
     val melding: String? = null,
-    val kontekster: List<Kontekster>? = null,
+    val kontekster: List<Kontekster>? = null
 )
 
 data class Kontekster(
