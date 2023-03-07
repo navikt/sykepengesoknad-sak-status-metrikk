@@ -49,10 +49,14 @@ spec:
           - name: sykepengesoknad-sak-status-metrikk-db
             users:
               - name: bigquery-dataprodukt
+              - name: bigquery-datastream
             envVarPrefix: DATABASE
         maintenance:
           day: 2
           hour: 2
+        flags:
+          - name: cloudsql.logical_decoding
+            value: "on"
   env:
   {{#each env}}
      - name: {{@key}}
