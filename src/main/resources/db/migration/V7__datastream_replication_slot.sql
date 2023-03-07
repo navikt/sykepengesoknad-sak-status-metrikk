@@ -1,0 +1,1 @@
+SELECT PG_CREATE_LOGICAL_REPLICATION_SLOT ('sak_status_metrikk_replication', 'pgoutput');

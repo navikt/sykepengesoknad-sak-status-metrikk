@@ -1,0 +1,1 @@
+CREATE PUBLICATION sak_status_metrikk_publication for ALL TABLES;
