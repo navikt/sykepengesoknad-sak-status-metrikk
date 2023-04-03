@@ -12,7 +12,7 @@ spec:
   replicas:
     min: {{replicas_min}}
     max: {{replicas_max}}
-    cpuThresholdPercentage: 50
+    cpuThresholdPercentage: 90
   port: 8080
   liveness:
     path: /internal/health
