@@ -7,32 +7,28 @@ metadata:
     team: flex
 spec:
   image: {{image}}
+  strategy:
+    type: Recreate
   replicas:
     min: {{replicas_min}}
     max: {{replicas_max}}
-    cpuThresholdPercentage: 90
+    cpuThresholdPercentage: 50
   port: 8080
   liveness:
     path: /internal/health
-    initialDelay: 60
-    timeout: 1
-    periodSeconds: 5
-    failureThreshold: 20
   readiness:
     path: /internal/health
-    initialDelay: 60
-    timeout: 1
-    periodSeconds: 5
-    failureThreshold: 20
+  startup:
+    path: /internal/health
+    initialDelay: 40
   prometheus:
     enabled: true
     path: /internal/prometheus
   resources:
     limits:
-      cpu: 600m
       memory: 600Mi
     requests:
-      cpu: 400m
+      cpu: 100m
       memory: 500Mi
   kafka:
     pool: {{kafkaPool}}
