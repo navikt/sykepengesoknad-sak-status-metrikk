@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 data class MeldingMedEventName(
     @JsonProperty("@event_name")
-    val eventName: String? = null
+    val eventName: String? = null,
 )
 
 fun String.hentEventName(): String? {
@@ -17,7 +17,7 @@ data class SøknadMedId(
     @JsonProperty("id")
     val sykepengesoknadUuid: String,
     @JsonProperty("@id")
-    val sykepengesoknadAtId: String
+    val sykepengesoknadAtId: String,
 )
 
 fun String.tilSøknadMedId(): SøknadMedId {
@@ -29,7 +29,7 @@ data class VedtaksperiodeEndretEvent(
     val gjeldendeTilstand: String,
     val hendelser: List<String>? = null,
     @JsonProperty("@opprettet")
-    val opprettet: LocalDateTime
+    val opprettet: LocalDateTime,
 )
 
 fun String.tilVedtaksperiodeEndretEvent(): VedtaksperiodeEndretEvent {
@@ -38,7 +38,7 @@ fun String.tilVedtaksperiodeEndretEvent(): VedtaksperiodeEndretEvent {
 
 data class VedtaksperiodeForkastetEvent(
     val vedtaksperiodeId: String,
-    val hendelser: List<String>? = null
+    val hendelser: List<String>? = null,
 )
 
 fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
@@ -48,17 +48,17 @@ fun String.tilVedtaksperiodeForkastetEvent(): VedtaksperiodeForkastetEvent {
 data class AktivitetsloggNyAktivitetEvent(
     val aktiviteter: ArrayList<Aktiviteter> = arrayListOf(),
     @JsonProperty("@opprettet")
-    val opprettet: LocalDateTime
+    val opprettet: LocalDateTime,
 )
 
 data class Aktiviteter(
     val nivå: String? = null,
     val melding: String? = null,
-    val kontekster: List<Kontekster>? = null
+    val kontekster: List<Kontekster>? = null,
 )
 
 data class Kontekster(
-    val kontekstmap: Map<String, String>? = null
+    val kontekstmap: Map<String, String>? = null,
 )
 
 fun String.tilAktivitetsloggNyAktivitetEvent(): AktivitetsloggNyAktivitetEvent {
