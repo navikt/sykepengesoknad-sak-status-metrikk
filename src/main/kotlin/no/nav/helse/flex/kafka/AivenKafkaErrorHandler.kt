@@ -15,7 +15,7 @@ class AivenKafkaErrorHandler : DefaultErrorHandler(
     ExponentialBackOff(1000L, 1.5).also {
         // 8 minutter, som er mindre enn max.poll.interval.ms på 10 minutter.
         it.maxInterval = 60_000L * 8
-    }
+    },
 ) {
     private val log = logger()
 
@@ -23,12 +23,12 @@ class AivenKafkaErrorHandler : DefaultErrorHandler(
         thrownException: java.lang.Exception,
         records: MutableList<ConsumerRecord<*, *>>,
         consumer: Consumer<*, *>,
-        container: MessageListenerContainer
+        container: MessageListenerContainer,
     ) {
         records.forEach { record ->
             log.error(
                 "Feil i prossesseringen av record med offset: ${record.offset()}, key: ${record.key()} på topic ${record.topic()}",
-                thrownException
+                thrownException,
             )
         }
         if (records.isEmpty()) {
@@ -43,12 +43,12 @@ class AivenKafkaErrorHandler : DefaultErrorHandler(
         data: ConsumerRecords<*, *>,
         consumer: Consumer<*, *>,
         container: MessageListenerContainer,
-        invokeListener: Runnable
+        invokeListener: Runnable,
     ) {
         data.forEach { record ->
             log.error(
                 "Feil i prossesseringen av record med offset: ${record.offset()}, key: ${record.key()} på topic ${record.topic()}",
-                thrownException
+                thrownException,
             )
         }
         if (data.isEmpty()) {

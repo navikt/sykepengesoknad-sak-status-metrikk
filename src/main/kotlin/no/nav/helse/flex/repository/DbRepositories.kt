@@ -10,42 +10,46 @@ import java.time.Instant
 
 @Repository
 interface SykepengesoknadIdRepository : CrudRepository<SykepengesoknadIdDbRecord, String> {
-
     @Modifying
     @Query(
         """
         INSERT INTO sykepengesoknad_id(sykepengesoknad_uuid, sykepengesoknad_at_id)
         VALUES (:sykepengesoknadUuid, :sykepengesoknadAtId)
         ON CONFLICT DO NOTHING
-        """
+        """,
     )
-    fun insert(sykepengesoknadUuid: String, sykepengesoknadAtId: String)
+    fun insert(
+        sykepengesoknadUuid: String,
+        sykepengesoknadAtId: String,
+    )
 }
 
 @Table("sykepengesoknad_id")
 data class SykepengesoknadIdDbRecord(
     val sykepengesoknadUuid: String,
-    val sykepengesoknadAtId: String
+    val sykepengesoknadAtId: String,
 )
 
 @Repository
 interface SykepengesoknadVedtaksperiodeRepository : CrudRepository<SykepengesoknadVedtaksperiodeDbRecord, String> {
-
     @Modifying
     @Query(
         """
         INSERT INTO sykepengesoknad_vedtaksperiode(sykepengesoknad_at_id, vedtaksperiode_id)
         VALUES (:sykepengesoknadAtId, :vedtaksperiodeId)
         ON CONFLICT DO NOTHING
-        """
+        """,
     )
-    fun insert(sykepengesoknadAtId: String, vedtaksperiodeId: String)
+    fun insert(
+        sykepengesoknadAtId: String,
+        vedtaksperiodeId: String,
+    )
 }
 
 @Table("sykepengesoknad_vedtaksperiode")
 data class SykepengesoknadVedtaksperiodeDbRecord(
     val sykepengesoknadAtId: String,
-    val vedtaksperiodeId: String
+    val vedtaksperiodeId: String,
 )
 
 @Repository
@@ -57,26 +61,25 @@ data class VedtaksperiodeTilstandDbRecord(
     val id: String? = null,
     val vedtaksperiodeId: String,
     val tilstand: String,
-    val tidspunkt: Instant
+    val tidspunkt: Instant,
 )
 
 @Repository
 interface VedtaksperiodeForkastetRepository : CrudRepository<VedtaksperiodeForkastetDbRecord, String> {
-
     @Modifying
     @Query(
         """
         INSERT INTO vedtaksperiode_forkastet(vedtaksperiode_id)
         VALUES (:vedtaksperiodeId)
         ON CONFLICT DO NOTHING
-        """
+        """,
     )
     fun insert(vedtaksperiodeId: String)
 }
 
 @Table("vedtaksperiode_forkastet")
 data class VedtaksperiodeForkastetDbRecord(
-    val vedtaksperiodeId: String
+    val vedtaksperiodeId: String,
 )
 
 @Repository
@@ -88,5 +91,5 @@ data class VedtaksperiodeFunksjonellFeilDbRecord(
     val id: String? = null,
     val vedtaksperiodeId: String,
     val melding: String,
-    val tidspunkt: Instant
+    val tidspunkt: Instant,
 )

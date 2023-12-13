@@ -6,19 +6,22 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 
+const val RAPID_TOPIC = "tbd.rapid.v1"
+
 @Component
 class RapidListener(
-    val finnStatusFraRapid: FinnStatusFraRapid
+    val finnStatusFraRapid: FinnStatusFraRapid,
 ) {
     @KafkaListener(
-        topics = [rapidTopic],
+        topics = [RAPID_TOPIC],
         containerFactory = "aivenKafkaListenerContainerFactory",
-        concurrency = "4"
+        concurrency = "4",
     )
-    fun listen(cr: ConsumerRecord<String, String>, acknowledgment: Acknowledgment) {
+    fun listen(
+        cr: ConsumerRecord<String, String>,
+        acknowledgment: Acknowledgment,
+    ) {
         finnStatusFraRapid.oppdater(cr.value())
         acknowledgment.acknowledge()
     }
 }
-
-const val rapidTopic = "tbd.rapid.v1"
