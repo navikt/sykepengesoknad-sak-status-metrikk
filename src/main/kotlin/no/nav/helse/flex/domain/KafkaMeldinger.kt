@@ -10,7 +10,11 @@ data class MeldingMedEventName(
 )
 
 fun String.hentEventName(): String? {
-    return objectMapper.readValue(this, MeldingMedEventName::class.java).eventName
+    return try {
+        objectMapper.readValue(this, MeldingMedEventName::class.java).eventName
+    } catch (e: Exception) {
+        null
+    }
 }
 
 data class SøknadMedId(
