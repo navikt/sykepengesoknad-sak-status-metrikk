@@ -12,6 +12,7 @@ import no.nav.helse.flex.repository.VedtaksperiodeFunksjonellFeilDbRecord
 import no.nav.helse.flex.repository.VedtaksperiodeFunksjonellFeilRepository
 import no.nav.helse.flex.repository.VedtaksperiodeTilstandDbRecord
 import no.nav.helse.flex.repository.VedtaksperiodeTilstandRepository
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.stereotype.Component
 import java.time.ZoneOffset
 
@@ -23,8 +24,13 @@ class FinnStatusFraRapid(
     val vedtaksperodeForkastetRepository: VedtaksperiodeForkastetRepository,
     val vedtaksperiodeFunksjonellFeilRepository: VedtaksperiodeFunksjonellFeilRepository,
 ) {
-    fun oppdater(value: String) {
-        when (value.hentEventName()) {
+    val log = logger()
+
+    fun oppdater(cr: ConsumerRecord<String, String>) {
+        val value = cr.value()
+        val enventname = value.hentEventName()
+
+        when (enventname) {
             "sendt_søknad_nav", "sendt_søknad_arbeidsgiver" -> {
                 håndterSendtSøknadEvents(value)
             }
@@ -39,6 +45,10 @@ class FinnStatusFraRapid(
 
             "aktivitetslogg_ny_aktivitet" -> {
                 håndterAktivitetsloggNyAktivitetEvents(value)
+            }
+
+            null -> {
+                log.error("Fant ikke eventname i melding fra rapid med offset ${cr.offset()} og partition ${cr.partition()}")
             }
         }
     }

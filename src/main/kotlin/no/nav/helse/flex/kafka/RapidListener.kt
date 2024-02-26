@@ -21,7 +21,7 @@ class RapidListener(
         cr: ConsumerRecord<String, String>,
         acknowledgment: Acknowledgment,
     ) {
-        finnStatusFraRapid.oppdater(cr.value())
+        finnStatusFraRapid.oppdater(cr)
         acknowledgment.acknowledge()
     }
 }
