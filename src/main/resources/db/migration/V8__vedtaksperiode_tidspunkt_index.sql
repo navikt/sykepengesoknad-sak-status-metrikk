@@ -1,0 +1,1 @@
+CREATE INDEX vedtaksperiode_tilstand_tidspunkt_idx ON vedtaksperiode_tilstand (tidspunkt);
